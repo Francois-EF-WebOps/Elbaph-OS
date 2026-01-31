@@ -1,10 +1,10 @@
-import { GoogleGenAI } from "@google/genai";
+import { GoogleGenAI, GenerateContentResponse } from "@google/genai";
 import { ELBAPH_SYSTEM_PROMPT } from '../constants';
 
 const apiKey = process.env.API_KEY || '';
 
-// We use the flash model for speed and efficiency with large context
-const MODEL_NAME = 'gemini-2.5-flash-latest';
+// Use gemini-3-flash-preview as per standard text task guidelines
+const MODEL_NAME = 'gemini-3-flash-preview';
 
 export const generateSpecification = async (
   filename: string, 
@@ -19,7 +19,7 @@ export const generateSpecification = async (
   const prompt = `Generate ${filename} as a full specification document. ${extraContext}`;
 
   try {
-    const response = await ai.models.generateContent({
+    const response: GenerateContentResponse = await ai.models.generateContent({
       model: MODEL_NAME,
       contents: [
         {
